@@ -21,7 +21,7 @@ class ServersController extends AppController {
     function categories() {
         CakeLog::debug("ENTRANDO");
         $this->loadModel('Item');
-        $data = $this->Item->find('all',array(
+        $data = $this->Item->find('list',array(
                     'fields'=>array('Code', 'Description1', 'Cost')
                     ));
         $this->set('response',  compact('data'));

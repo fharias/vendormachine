@@ -6,6 +6,6 @@
  */
 header("Content-type: image/jpeg;");
 header("Content-Disposition: inline; filename=item");
-echo $data;
+print $data;
 ?>
 
