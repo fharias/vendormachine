@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-class ServerController extends AppController {
+class ServersController extends AppController {
 
     public $components = array(
         'RequestHandler',
