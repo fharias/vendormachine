@@ -23,7 +23,7 @@ class ServersController extends AppController {
         $this->loadModel('Item');
         $data = $this->Item->find('all',array(
                     'fields'=>array('Code', 'Description', 'Cost')
-                    )));
+                    ));
         $this->set(array(
             'response' => $data,
             '_serialize' => array('response')
@@ -37,7 +37,7 @@ class ServersController extends AppController {
                 array(
                     'conditions' => 
                         array('Code' => $item)
-                );
+                ));
         $this->set('data', $this->hextostr($data['ItemImage']['Picture']));
     }
 
