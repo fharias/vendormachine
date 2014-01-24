@@ -16,6 +16,14 @@ class ServersController extends AppController {
         ));
     }
     
+    function categories(){
+        $this->loadModel('Item');
+        $data = $this->Item->find('all');
+        $this->set(array(
+            'response' => $data,
+            '_serialize' => array('response')
+        ));
+    }
 }
 
 ?>
