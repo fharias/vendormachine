@@ -21,7 +21,9 @@ class ServersController extends AppController {
     function categories() {
         CakeLog::debug("ENTRANDO");
         $this->loadModel('Item');
-        $data = $this->Item->find('all');
+        $data = $this->Item->find('all',array(
+                    'fields'=>array('Code', 'Description', 'Cost')
+                    )));
         $this->set(array(
             'response' => $data,
             '_serialize' => array('response')
@@ -31,7 +33,11 @@ class ServersController extends AppController {
     function image($item) {
         $this->layout = null;
         $this->loadModel('ItemImage');
-        $data = $this->ItemImage->find('first', array('conditions' => array('Code' => $item)));
+        $data = $this->ItemImage->find('first', 
+                array(
+                    'conditions' => 
+                        array('Code' => $item)
+                );
         $this->set('data', $this->hextostr($data['ItemImage']['Picture']));
     }
 
