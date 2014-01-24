@@ -28,7 +28,7 @@ class ServersController extends AppController {
     
     function image($item){
         $this->loadModel('ItemImage');
-        $data = $this->ItemImage->findByCode('first', $item);
+        $data = $this->ItemImage->find('first', array('conditions'=>array('Code'=>$item)));
         $this->set('data', $data);
     }
     
