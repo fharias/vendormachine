@@ -62,14 +62,14 @@
 class DATABASE_CONFIG {
 
 	public $default = array(
-		'datasource' => 'Database/Mysql',
+		'datasource' => 'Database/Sqlserver',
 		'persistent' => false,
 		'host' => 'localhost',
-		'login' => 'user',
-		'password' => 'password',
-		'database' => 'database_name',
+		'login' => 'androiduser',
+		'password' => 'gg88xXxt7',
+		'database' => 'autocrib61',
 		'prefix' => '',
-		'port' => '3306',
+		'port' => '1433',
 		//'encoding' => 'utf8',
 	);
 
