@@ -34,7 +34,7 @@ Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'
 Router::mapResources(array('servers'));
 
 // Add XML + JSON to your parseExtensions
-Router::parseExtensions('json', 'xml');
+Router::parseExtensions('json', 'xml', 'img');
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

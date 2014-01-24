@@ -26,6 +26,12 @@ class ServersController extends AppController {
         ));
     }
     
+    function image($item){
+        $this->loadModel('ItemImage');
+        $data = $this->findByCode('first', $item);
+        $this->set('data', $data);
+    }
+    
 }
 
 ?>
