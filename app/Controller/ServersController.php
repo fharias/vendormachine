@@ -17,6 +17,7 @@ class ServersController extends AppController {
     }
     
     function categories(){
+        CakeLog::debug("ENTRANDO");
         $this->loadModel('Item');
         $data = $this->Item->find('all');
         $this->set(array(
@@ -24,6 +25,7 @@ class ServersController extends AppController {
             '_serialize' => array('response')
         ));
     }
+    
 }
 
 ?>
