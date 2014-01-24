@@ -35,7 +35,15 @@ class ServersController extends AppController {
     protected function _isRest() {
         return !empty($this->Rest) && is_object($this->Rest) && $this->Rest->isActive();
     }
-
+    
+    public function index(){
+        
+    }
+    
+    public function view(){
+        
+    }
+    
 }
 
 ?>
