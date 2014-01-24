@@ -6,6 +6,6 @@
  */
 
 class Bin extends AppModel {
-    private $useTable = "Bin";
+    public $useTable = "Bin";
 }
 ?>
