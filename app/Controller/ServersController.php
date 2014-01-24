@@ -11,7 +11,7 @@ class ServersController extends AppController {
         $this->loadModel('Bin');
         $data = $this->Bin->find('all');
         $this->set(array(
-            'bin' => $data,
+            'response' => $data,
             '_serialize' => array('response')
         ));
     }
