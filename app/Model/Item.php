@@ -7,8 +7,8 @@
 class Item extends AppModel{
     public $useTable = 'Item';
     public $hasOne = array(
-        'Itemimage' => array(
-			'className' => 'Itemimage',
+        'ItemImage' => array(
+			'className' => 'ItemImage',
 			'foreignKey' => 'Code',
 			
 		)
