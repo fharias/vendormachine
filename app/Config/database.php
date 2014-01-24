@@ -64,7 +64,7 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Sqlserver',
 		'persistent' => false,
-		'host' => 'localhost',
+		'host' => 'winbugs.cloudapp.net',
 		'login' => 'androiduser',
 		'password' => 'gg88xXxt7',
 		'database' => 'autocrib61',
