@@ -6,8 +6,10 @@
  */
 
 class ServersController extends AppController {
+
     public $components = array('RequestHandler');
-    function index(){
+
+    function index() {
         $this->loadModel('Bin');
         $data = $this->Bin->find('all');
         $this->set(array(
@@ -15,8 +17,8 @@ class ServersController extends AppController {
             '_serialize' => array('response')
         ));
     }
-    
-    function categories(){
+
+    function categories() {
         CakeLog::debug("ENTRANDO");
         $this->loadModel('Item');
         $data = $this->Item->find('all');
@@ -25,14 +27,21 @@ class ServersController extends AppController {
             '_serialize' => array('response')
         ));
     }
-    
-    function image($item){
-        $this->layout=null;
+
+    function image($item) {
+        $this->layout = null;
         $this->loadModel('ItemImage');
-        $data = $this->ItemImage->find('first', array('conditions'=>array('Code'=>$item)));
-        $this->set('data', $data);
+        $data = $this->ItemImage->find('first', array('conditions' => array('Code' => $item)));
+        $this->set('data', $this->hextostr($data['ItemImage']['Picture']));
     }
-    
+
+    protected function hextostr($x) {
+        $s = '';
+        foreach (explode("\n", trim(chunk_split($x, 2))) as $h)
+            $s.=chr(hexdec($h));
+        return($s);
+    }
+
 }
 
 ?>

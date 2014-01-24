@@ -5,5 +5,6 @@
  * and open the template in the editor.
  */
 header("Content-type: image/jpeg;");
-echo $data['ItemImage']['Picture']
+echo $data;
 ?>
+
