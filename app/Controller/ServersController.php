@@ -22,7 +22,7 @@ class ServersController extends AppController {
         CakeLog::debug("ENTRANDO");
         $this->loadModel('Item');
         $data = $this->Item->find('all',array(
-                    'fields'=>array('Code', 'Description', 'Cost')
+                    'fields'=>array('Code', 'Description1', 'Cost')
                     ));
         $this->set(array(
             'response' => $data,
