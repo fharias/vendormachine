@@ -411,7 +411,7 @@ class Sqlserver extends DboSource {
 			$limit = $real->Length;
 			$col = $real->Type;
 		}
-
+                echo $real.">".$col;
 		if ($col === 'datetime2') {
 			return 'datetime';
 		}
@@ -436,6 +436,7 @@ class Sqlserver extends DboSource {
 		if (strpos($col, 'text') !== false) {
 			return 'text';
 		}
+                
 		if (strpos($col, 'binary') !== false || $col === 'image') {
 			return 'binary';
 		}
