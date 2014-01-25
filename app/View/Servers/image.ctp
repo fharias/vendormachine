@@ -4,9 +4,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-$image = sqlsrv_get_field( $data, 0, 
-                      SQLSRV_PHPTYPE_STREAM(SQLSRV_ENC_BINARY));
-header("Content-type: image/jpeg;");
-fpassthru($image); 
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
+header("Content-Type: image/jpeg");
+header("Content-Disposition:inline; filename=\"" . trim(htmlentities("image.jpg")) . "\"");
+header("Content-Description: " . trim(htmlentities("image.jpg")));
+header("Content-Length: " . (string)$data);
+header("Connection: close");
+ 
+echo $data; 
 ?>
 
