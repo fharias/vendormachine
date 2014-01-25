@@ -613,6 +613,7 @@ class Sqlserver extends DboSource {
  */
 	public function fetchResult() {
 		if ($row = $this->_result->fetch(PDO::FETCH_NUM)) {
+                    echo $row;
 			$resultRow = array();
 			foreach ($this->map as $col => $meta) {
 				list($table, $column, $type) = $meta;
@@ -624,7 +625,7 @@ class Sqlserver extends DboSource {
 					$resultRow[$table][$column] = $this->boolean($resultRow[$table][$column]);
 				}
                                 if($type == 'binary' && $row[$col]!==null){
-                                    echo "Binary";
+                                    
                                     $getAsType = SQLSRV_PHPTYPE_STREAM(SQLSRV_ENC_BINARY);
                                     $resultRow[$table][$column] = sqlsrv_get_field($this->_result, $column, $getAsType);
                                 }
