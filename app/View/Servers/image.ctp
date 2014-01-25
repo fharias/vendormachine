@@ -4,9 +4,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+$image = sqlsrv_get_field( $data, 0, 
+                      SQLSRV_PHPTYPE_STREAM(SQLSRV_ENC_BINARY));
 header("Content-type: image/jpeg;");
-header('Transfer-Encoding-Type: base64');
-header("Content-Disposition: inline; filename=item");
-echo base64_encode($data); 
+fpassthru($image); 
 ?>
 
