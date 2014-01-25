@@ -624,6 +624,7 @@ class Sqlserver extends DboSource {
 					$resultRow[$table][$column] = $this->boolean($resultRow[$table][$column]);
 				}
                                 if($type == 'binary' && $row[$col]!==null){
+                                    echo "Binary";
                                     $getAsType = SQLSRV_PHPTYPE_STREAM(SQLSRV_ENC_BINARY);
                                     $resultRow[$table][$column] = sqlsrv_get_field($this->_result, $column, $getAsType);
                                 }
