@@ -12,6 +12,6 @@ header("Content-Description: " . trim(htmlentities("image.jpg")));
 header("Content-Length: " . (string)$data);
 header("Connection: close");
  
-echo $data; 
+echo base64_decode($data); 
 ?>
 
