@@ -411,7 +411,6 @@ class Sqlserver extends DboSource {
 			$limit = $real->Length;
 			$col = $real->Type;
 		}
-                echo $real.">".$col;
 		if ($col === 'datetime2') {
 			return 'datetime';
 		}
@@ -624,6 +623,10 @@ class Sqlserver extends DboSource {
 				if ($type === 'boolean' && $row[$col] !== null) {
 					$resultRow[$table][$column] = $this->boolean($resultRow[$table][$column]);
 				}
+                                if($type == 'binary' && $row[$col]!==null){
+                                    $getAsType = SQLSRV_PHPTYPE_STREAM(SQLSRV_ENC_BINARY);
+                                    $resultRow[$table][$column] = sqlsrv_get_field($this->_result, $column, $getAsType);
+                                }
 			}
 			return $resultRow;
 		}
