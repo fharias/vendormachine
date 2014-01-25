@@ -35,7 +35,7 @@ class ServersController extends AppController {
                     'conditions' => 
                         array('Code' => $item)
                 ));
-        $this->set('data', $this->hextostr($data['ItemImage']['Picture']));
+        $this->set('data', $data['ItemImage']['Picture']);
     }
 
     protected function hextostr($x) {
