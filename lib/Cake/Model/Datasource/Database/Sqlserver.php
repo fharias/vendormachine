@@ -617,7 +617,7 @@ class Sqlserver extends DboSource {
 			$resultRow = array();
 			foreach ($this->map as $col => $meta) {
 				list($table, $column, $type) = $meta;
-                                echo $table.".".$column." ".$type;
+                                echo $table.".".$column." ".$type."</br>";
 				if ($table === 0 && $column === self::ROW_COUNTER) {
 					continue;
 				}
