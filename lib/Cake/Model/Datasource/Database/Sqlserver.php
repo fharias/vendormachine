@@ -407,7 +407,6 @@ class Sqlserver extends DboSource {
 	public function column($real) {
 		$limit = null;
 		$col = $real;
-                echo "<pre>".print_r($real,true)."</pre>";
 		if (is_object($real) && isset($real->Field)) {
 			$limit = $real->Length;
 			$col = $real->Type;
