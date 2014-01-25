@@ -613,10 +613,11 @@ class Sqlserver extends DboSource {
  */
 	public function fetchResult() {
 		if ($row = $this->_result->fetch(PDO::FETCH_NUM)) {
-                    print_r($row);
+                    
 			$resultRow = array();
 			foreach ($this->map as $col => $meta) {
 				list($table, $column, $type) = $meta;
+                                echo $table.".".$column." ".$type;
 				if ($table === 0 && $column === self::ROW_COUNTER) {
 					continue;
 				}
