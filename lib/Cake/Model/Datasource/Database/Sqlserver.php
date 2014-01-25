@@ -407,6 +407,7 @@ class Sqlserver extends DboSource {
 	public function column($real) {
 		$limit = null;
 		$col = $real;
+                echo "<pre>".print_r($real,true)."</pre>";
 		if (is_object($real) && isset($real->Field)) {
 			$limit = $real->Length;
 			$col = $real->Type;
@@ -617,7 +618,6 @@ class Sqlserver extends DboSource {
 			$resultRow = array();
 			foreach ($this->map as $col => $meta) {
 				list($table, $column, $type) = $meta;
-                                echo $table.".".$column." ".$type."</br>";
 				if ($table === 0 && $column === self::ROW_COUNTER) {
 					continue;
 				}
