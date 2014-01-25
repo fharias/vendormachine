@@ -1,1 +1,4 @@
-<img src="data:image/jpeg;base64,<?=$data?>" />
+<?
+header("Content-type: image/jpeg");
+echo 'data:image/jpeg;base64,' . $data;
+?>
