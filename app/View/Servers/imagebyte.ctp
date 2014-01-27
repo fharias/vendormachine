@@ -7,6 +7,10 @@
 
 header('Content-Type: image/JPEG');
 header("Content-Length: " . strlen($data));
-$img = imagecreatefromstring($data);
+$image = "";
+foreach($data as $b){
+    $image .= $b;
+}
+$img = imagecreatefromstring($image);
 imagejpeg($img);
 ?>
