@@ -6,5 +6,7 @@
  */
 
 file_put_contents('img/'.$iac.'.png', base64_decode($data));
-header('Location: img/'.$iac.'.png');
 ?>
+<script>
+    window.location('img/<?=$iac?>.png');
+    </script>
