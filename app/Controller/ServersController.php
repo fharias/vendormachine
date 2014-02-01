@@ -85,7 +85,7 @@ class ServersController extends AppController {
                 "Code Like "=>'%'.$criteria.'%',
                 "Description1 Like"=>'%'.$criteria.'%'
             ))));
-        $this->set('data', $result);
+        $this->set('response', $result);
     }
 
     protected function hextostr($x) {
