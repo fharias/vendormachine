@@ -74,6 +74,19 @@ class ServersController extends AppController {
         $this->set('iac', $item);
         $this->set('data', $bytes);
     }
+    
+    function searchByCriteria($criteria){
+        $this->layout = null;
+        $this->loadModel('Item');
+        $result = $this->Item->find('all', array(
+            'fields' => array('Code', 'Description1', 'Cost'),
+            'conditions' =>
+            array('OR' => array(
+                "Code Like "=>'%'.$criteria.'%',
+                "Description1 Like"=>'%'.$criteria.'%'
+            ))));
+        $this->set('data', $result);
+    }
 
     protected function hextostr($x) {
         $s = '';
