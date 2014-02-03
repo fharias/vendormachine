@@ -99,7 +99,7 @@ class ServersController extends AppController {
         $this->loadModel('Item');
         $this->loadModel('Job');
         $this->loadModel('JobItem');
-        $r = $this->Item->findByCode('first',$sku);
+        $r = $this->Item->find('first',array('conditions'=>array('Code'=>$sku)));
         $jobId = $this->numberMachine(1000, 999999, 6);
         $data = array(
             'Job' => 
