@@ -113,7 +113,7 @@ class ServersController extends AppController {
         $data['JobItem']['ItemCode'] = $sku;
         $data['JobItem']['QtyReq'] = 1;
         $data['JobItem']['Description'] = $r['Item']['Description1'];
-        $this->jobItem->save($data);
+        $this->JobItem->save($data);
         $response = new Object();
         $response->state = 'OK';
         $response->message = 'PROCESO EXITOSO';
