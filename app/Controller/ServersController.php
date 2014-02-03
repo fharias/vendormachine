@@ -95,9 +95,11 @@ class ServersController extends AppController {
         return($s);
     }
 
-    public function job($sku, $descripcion,$vendedor, $boleta, $imei) {
+    public function job($sku,$vendedor, $boleta, $imei) {
+        $this->loadModel('Item');
         $this->loadModel('Job');
         $this->loadModel('JobItem');
+        $r = $this->Item->findByCode('first',$sku);
         $jobId = $this->numberMachine(1000, 999999, 6);
         $data = array(
             'Job' => 
@@ -114,7 +116,7 @@ class ServersController extends AppController {
                 'MyNo'=>$jobId,
                 'ItemCode'=>$sku,
                 'QtyReq'=>1,
-                'Description'=>$descripcion
+                'Description'=>$r['Item']['Description1']
             )
         );
         $this->JobItem->create();
