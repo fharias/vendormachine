@@ -92,7 +92,7 @@ class ServersController extends AppController {
         $s = '';
         foreach (explode("\n", trim(chunk_split($x, 2))) as $h)
             $s.=chr(hexdec($h));
-        debug($s);
+        
         return($s);
     }
 
@@ -101,7 +101,7 @@ class ServersController extends AppController {
         $this->loadModel('Job');
         $this->loadModel('JobItem');
         $r = $this->Item->find('first',array('conditions'=>array('Code'=>$sku)));
-        $jobId = $this->numberMachine(1000, 999999, 6);
+        $jobId = mt_rand(1000, 999999);
         $data = array();
         $data['Job']['MyNo']=$jobId;
         $data['Job']['Description']=$boleta;
@@ -122,18 +122,6 @@ class ServersController extends AppController {
         
     }
 
-    # My answer
-
-    private function numberMachine($min, $max, $count) {
-        $range = array();
-        while ($i++ < $count) {
-            while (in_array($num = mt_rand($min, $max), $range)) {
-                
-            }
-            $range[] = $num;
-        }
-        return $range;
-    }
 
 }
 
