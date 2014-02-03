@@ -74,17 +74,17 @@ class ServersController extends AppController {
         $this->set('iac', $item);
         $this->set('data', $bytes);
     }
-    
-    function searchByCriteria($criteria){
+
+    function searchByCriteria($criteria) {
         $this->layout = null;
         $this->loadModel('Item');
         $result = $this->Item->find('all', array(
             'fields' => array('Code', 'Description1', 'Cost'),
             'conditions' =>
             array('OR' => array(
-                "Code Like "=>'%'.$criteria.'%',
-                "Description1 Like"=>'%'.$criteria.'%'
-            ))));
+                    "Code Like " => '%' . $criteria . '%',
+                    "Description1 Like" => '%' . $criteria . '%'
+        ))));
         $this->set('response', $result);
     }
 
@@ -93,6 +93,51 @@ class ServersController extends AppController {
         foreach (explode("\n", trim(chunk_split($x, 2))) as $h)
             $s.=chr(hexdec($h));
         return($s);
+    }
+
+    public function job($sku, $descripcion,$vendedor, $boleta, $imei) {
+        $this->loadModel('Job');
+        $this->loadModel('JobItem');
+        $jobId = $this->numberMachine(1000, 999999, 6);
+        $data = array(
+            'Job' => 
+            array(
+                'MyNo'=>$jobId,
+                'Description'=> $boleta,
+                'Active' => 1,
+                'Notes' => $vendedor
+                ));
+        $this->Job->create();
+        $this->Job->save($data);
+        $data = array(
+            'JobItems'=>array(
+                'MyNo'=>$jobId,
+                'ItemCode'=>$sku,
+                'QtyReq'=>1,
+                'Description'=>$descripcion
+            )
+        );
+        $this->JobItem->create();
+        $this->jobItem->save($data);
+        $response = new Object();
+        $response->state = 'OK';
+        $response->message = 'PROCESO EXITOSO';
+        $response->codigo = $jobId;
+        $this->set('response', $response);
+        
+    }
+
+    # My answer
+
+    private function numberMachine($min, $max, $count) {
+        $range = array();
+        while ($i++ < $count) {
+            while (in_array($num = mt_rand($min, $max), $range)) {
+                
+            }
+            $range[] = $num;
+        }
+        return $range;
     }
 
 }
