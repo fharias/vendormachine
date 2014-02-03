@@ -112,7 +112,7 @@ class ServersController extends AppController {
         $this->Job->create();
         $this->Job->save($data);
         $data = array(
-            'JobItems'=>array(
+            'JobItem'=>array(
                 'MyNo'=>$jobId,
                 'ItemCode'=>$sku,
                 'QtyReq'=>1,
