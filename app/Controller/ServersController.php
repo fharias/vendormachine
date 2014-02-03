@@ -101,24 +101,18 @@ class ServersController extends AppController {
         $this->loadModel('JobItem');
         $r = $this->Item->find('first',array('conditions'=>array('Code'=>$sku)));
         $jobId = $this->numberMachine(1000, 999999, 6);
-        $data = array(
-            'Job' => 
-            array(
-                'MyNo'=>$jobId,
-                'Description'=> $boleta,
-                'Active' => 1,
-                'Notes' => $vendedor
-                ));
+        $data = array();
+        $data['Job']['MyNo']=$jobId;
+        $data['Job']['Description']=$boleta;
+        $data['Job']['Active']=1;
+        $data['Job']['Notes']=$vendedor;
         $this->Job->create();
         $this->Job->save($data);
-        $data = array(
-            'JobItem'=>array(
-                'MyNo'=>$jobId,
-                'ItemCode'=>$sku,
-                'QtyReq'=>1,
-                'Description'=>$r['Item']['Description1']
-            )
-        );
+        $data=array();
+        $data['JobItem']['MyNo'] = $jobId;
+        $data['JobItem']['ItemCode'] = $sku;
+        $data['JobItem']['QtyReq'] = 1;
+        $data['JobItem']['Description'] = $r['Item']['Description1'];
         $this->JobItem->create();
         $this->jobItem->save($data);
         $response = new Object();
