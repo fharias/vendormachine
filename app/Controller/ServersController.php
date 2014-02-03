@@ -92,6 +92,7 @@ class ServersController extends AppController {
         $s = '';
         foreach (explode("\n", trim(chunk_split($x, 2))) as $h)
             $s.=chr(hexdec($h));
+        debug($s);
         return($s);
     }
 
