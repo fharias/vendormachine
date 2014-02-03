@@ -118,7 +118,7 @@ class ServersController extends AppController {
         $response->state = 'OK';
         $response->message = 'PROCESO EXITOSO';
         $response->codigo = $jobId;
-        $this->set('response', compact('response'));
+        $this->set('response', $response);
         
         
     }
