@@ -24,12 +24,12 @@ class CartsController extends AppController{
             $data = array();
             $data['CartItem']['cart_id'] = $id;
             $data['CartItem']['ItemCode'] = $sku;
-            $data['CartItem']['cantidad'] = 1;
+            $data['CartItem']['Cantidad'] = 1;
             $this->CartItem->save($data);
         }else{
             $this->CartItem->cart_id = $id;
             $this->CartItem->ItemCode = $sku;
-            $this->CartItem->saveField('cantidad', $itemCart['CartItem']['cantidad']+1);
+            $this->CartItem->saveField('Cantidad', $itemCart['CartItem']['Cantidad']+1);
         }
         $response = new Object();
         $response->state = 'OK';
