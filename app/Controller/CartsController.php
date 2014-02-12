@@ -27,7 +27,7 @@ class CartsController extends AppController{
             $data['CartItem']['Cantidad'] = 1;
             $this->CartItem->save($data);
         }else{
-            $this->CartItem->updateAll(array('Cantidad', $itemCart['CartItem']['Cantidad']+1),array('cart_id'=>$id, 'ItemCode'=>$sku));
+            $this->CartItem->updateAll(array('Cantidad' => $itemCart['CartItem']['Cantidad']+1),array('cart_id'=>$id, 'ItemCode'=>$sku));
         }
         $response = new Object();
         $response->state = 'OK';
