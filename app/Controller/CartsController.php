@@ -39,7 +39,7 @@ class CartsController extends AppController{
     
     public function show($uuid){
         $this->loadModel('Cart');
-        $cart = $this->Cart->query("select a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCod and a.uuid = '".$uuid."' and a.state=1");
+        $cart = $this->Cart->query("select a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCode and a.uuid = '".$uuid."' and a.state=1");
         
         $this->set('response',$cart);
     }
