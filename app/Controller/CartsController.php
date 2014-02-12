@@ -41,7 +41,10 @@ class CartsController extends AppController{
         $this->loadModel('Cart');
         $cart = $this->Cart->query("select a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCode and a.uuid = '".$uuid."' and a.state=1");
         
-        $this->set('response',$cart);
+        $this->set(array(
+            'response' => $cart,
+            '_serialize' => array('response')
+        ));
     }
     
     public function checkout($uuid, $vendorcode, $factura){
