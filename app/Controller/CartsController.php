@@ -19,11 +19,18 @@ class CartsController extends AppController{
         }else{
             $id = $cart['Cart']['id'];
         }
-        $data = array();
-        $data['CartItem']['cart_id'] = $id;
-        $data['CartItem']['ItemCode'] = $sku;
-        $data['CartItem']['cantidad'] = 1;
-        $this->CartItem->save($data);
+        $itemCart = $this->CartItem->find('first', array('conditions'=>array('cart_id'=>$id, 'ItemCode'=>$sku)));
+        if(!$itemCart){
+            $data = array();
+            $data['CartItem']['cart_id'] = $id;
+            $data['CartItem']['ItemCode'] = $sku;
+            $data['CartItem']['cantidad'] = 1;
+            $this->CartItem->save($data);
+        }else{
+            $this->CartItem->cart_id = $id;
+            $this->CartItem->ItemCode = $sku;
+            $this->CartItem->saveField('cantidad', $itemCart['CartItem']['cantidad']+1);
+        }
         $response = new Object();
         $response->state = 'OK';
         $response->message = 'PROCESO EXITOSO';
