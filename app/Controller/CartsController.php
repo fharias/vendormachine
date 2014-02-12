@@ -42,7 +42,7 @@ class CartsController extends AppController{
         $cart = $this->Cart->query("select a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCode and a.uuid = '".$uuid."' and a.state=1");
         $cartObject = array();
         foreach($cart as $c){
-           $cartObject[] = array('Item'=>$c[0]); 
+           $cartObject[]['Item'] = $c[0]; 
         }
         $this->set('response',$cartObject);
     }
