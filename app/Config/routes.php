@@ -31,7 +31,7 @@ Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home
  */
 Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
-Router::mapResources(array('servers'));
+Router::mapResources(array('servers', 'carts'));
 
 // Add XML + JSON to your parseExtensions
 Router::parseExtensions('json', 'xml', 'img');

@@ -23,7 +23,7 @@ class CartsController extends AppController{
         $data['CartItem']['cart_id'] = $id;
         $data['CartItem']['ItemCode'] = $sku;
         $data['CartItem']['cantidad'] = 1;
-        $this->Cart->save($data);
+        $this->CartItem->save($data);
         $response = new Object();
         $response->state = 'OK';
         $response->message = 'PROCESO EXITOSO';
