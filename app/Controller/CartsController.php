@@ -6,6 +6,8 @@
  */
 class CartsController extends AppController{
     
+    public $components = array('RequestHandler');
+    
     public function add($uuid, $sku){
         $this->loadModel('Cart');
         $this->loadModel('CartItem');
