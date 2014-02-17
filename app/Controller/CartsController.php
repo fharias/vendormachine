@@ -68,7 +68,7 @@ class CartsController extends AppController {
         $data['Job']['Notes'] = $vendorcode;
         $this->Job->save($data);
         $cart = $this->Cart->query("select a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCode and a.uuid = '" . $uuid . "' and a.state=1");
-        foreach ($itemCart as $c) {
+        foreach ($cart as $c) {
             $data = array();
             $data['JobItem']['MyNo'] = $jobId;
             $data['JobItem']['ItemCode'] = $c['ItemCode'];
@@ -76,7 +76,7 @@ class CartsController extends AppController {
             $data['JobItem']['Description'] = $c['Description1'];
             $this->JobItem->save($data);
         }
-        $this->Cart->updateAll(array('state' => 2, 'vendor'=>$vendorcode, 'cashier'=>$pincajero, 'void'=>$factura, 'Job'=>$jobId), array('uuid' => $uuid));
+        $this->Cart->updateAll(array('state' => 2, 'vendor'=>$vendorcode, 'cashier'=>$pincajero, 'void'=>$factura, 'Job'=>$jobId), array('id' => $id));
         $response = new Object();
         $response->state = 'OK';
         $response->message = 'PROCESO EXITOSO';
