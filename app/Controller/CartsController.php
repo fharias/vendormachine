@@ -75,6 +75,7 @@ class CartsController extends AppController {
             $data['JobItem']['Description'] = $c['Description1'];
             $this->JobItem->save($data);
         }
+        $this->Cart->updateAll(array('state' => 2), array('uuid' => $uuid));
         $response = new Object();
         $response->state = 'OK';
         $response->message = 'PROCESO EXITOSO';
