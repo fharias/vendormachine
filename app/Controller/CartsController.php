@@ -88,7 +88,7 @@ class CartsController extends AppController {
     
     public function lastpurchases($uuid){
         $this->loadModel('Cart');
-        $cart = $this->Cart->query("select a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCode and a.uuid = '" . $uuid . "' and a.state=2");
+        $cart = $this->Cart->query("select top 1 a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCode and a.uuid = '" . $uuid . "' and a.state=2 order by registerdate desc");
         $cartObject = array();
         foreach ($cart as $c) {
             $cartObject[]['Item'] = $c[0];
