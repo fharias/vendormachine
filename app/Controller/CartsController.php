@@ -73,9 +73,9 @@ class CartsController extends AppController {
             CakeLog::info(print_r($c,true));
             $data = array();
             $data['JobItem']['MyNo'] = $jobId;
-            $data['JobItem']['ItemCode'] = $c['ItemCode'];
-            $data['JobItem']['QtyReq'] = $c['Cantidad'];
-            $data['JobItem']['Description'] = $c['Description1'];
+            $data['JobItem']['ItemCode'] = $c[0]['ItemCode'];
+            $data['JobItem']['QtyReq'] = $c[0]['Cantidad'];
+            $data['JobItem']['Description'] = $c[0]['Description1'];
             $this->JobItem->save($data);
         }
         $this->Cart->updateAll(array('state' => 2, 'vendor'=>$vendorcode, 'cashier'=>$pincajero, 'void'=>$factura, 'Job'=>$jobId), array('id' => $id));
