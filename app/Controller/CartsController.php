@@ -51,7 +51,7 @@ class CartsController extends AppController {
         $this->loadModel('Cart');
         $this->loadModel('CartItem');
         $this->loadModel('Job');
-        $this->loadModel('JobItem');
+        
         $cart = $this->Cart->find('first', array('conditions' => array('uuid' => $uuid, 'state' => '1')));
         $id = $cart['Cart']['id'];
         $items = $this->CartItem->find(
@@ -70,14 +70,16 @@ class CartsController extends AppController {
         $cart = $this->Cart->query("select a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCode and a.uuid = '" . $uuid . "' and a.state=1");
         
         foreach ($cart as $c) {
+            $this->loadModel('JobItem');
             CakeLog::info(print_r($c,true));
             $data = array();
             $data['JobItem']['MyNo'] = $jobId;
             $data['JobItem']['ItemCode'] = $c[0]['ItemCode'];
             $data['JobItem']['QtyReq'] = $c[0]['Cantidad'];
             $data['JobItem']['Description'] = $c[0]['Description1'];
-            $this->JobItem->save($data);
+            @$this->JobItem->save($data);
         }
+        
         $this->Cart->updateAll(array('state' => 2, 'vendor'=>$vendorcode, 'cashier'=>$pincajero, 'void'=>$factura, 'Job'=>$jobId), array('id' => $id));
         $response = new Object();
         $response->state = 'OK';
