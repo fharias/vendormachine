@@ -21,9 +21,16 @@ class ServersController extends AppController {
     function categories() {
         CakeLog::debug("ENTRANDO");
         $this->loadModel('Item');
-        $data = $this->Item->find('all', array(
-            'fields' => array('Code', 'Description1', 'Cost')
-        ));
+        $data = $this->Item->query('SELECT 
+                                        b.*
+                                        ,OnHand
+                                        ,Barcode
+                                    FROM Bin a, Item b
+                                    where b.Code=a.Item and a.OnHand>0');
+        $cartObject = array();
+        foreach($data as $c){
+           $cartObject[]['Item'] = $c[0]; 
+        }
         $this->set('response', $data);
     }
 
