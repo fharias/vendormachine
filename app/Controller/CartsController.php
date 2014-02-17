@@ -68,11 +68,12 @@ class CartsController extends AppController {
         $data['Job']['Notes'] = $vendorcode;
         $this->Job->save($data);
         $cart = $this->Cart->query("select a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCode and a.uuid = '" . $uuid . "' and a.state=1");
-        CakeLog::info(print_r($cart,true));
+        
         foreach ($cart as $c) {
+            CakeLog::info(print_r($c,true));
             $data = array();
             $data['JobItem']['MyNo'] = $jobId;
-            $data['JobItem']['ItemCode'] = $c['Code'];
+            $data['JobItem']['ItemCode'] = $c['ItemCode'];
             $data['JobItem']['QtyReq'] = $c['Cantidad'];
             $data['JobItem']['Description'] = $c['Description1'];
             $this->JobItem->save($data);
