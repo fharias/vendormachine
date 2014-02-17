@@ -75,17 +75,27 @@ class CartsController extends AppController {
             $data['JobItem']['Description'] = $c['Description1'];
             $this->JobItem->save($data);
         }
-        $this->Cart->updateAll(array('state' => 2), array('uuid' => $uuid));
+        $this->Cart->updateAll(array('state' => 2, 'vendor'=>$vendorcode, 'cashier'=>$pincajero, 'void'=>$factura), array('uuid' => $uuid));
         $response = new Object();
         $response->state = 'OK';
         $response->message = 'PROCESO EXITOSO';
         $response->codigo = $jobId;
         $this->set('response', $response);
     }
+    
+    public function lastpurchases($uuid){
+        $this->loadModel('Cart');
+        $cart = $this->Cart->query("select a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCode and a.uuid = '" . $uuid . "' and a.state=2");
+        $cartObject = array();
+        foreach ($cart as $c) {
+            $cartObject[]['Item'] = $c[0];
+        }
+        $this->set('response', $cartObject);
+    }
 
     public function cancel($uuid) {
         $this->loadModel('Cart');
-        $this->Cart->updateAll(array('state' => 2), array('uuid' => $uuid));
+        $this->Cart->updateAll(array('state' => 3), array('uuid' => $uuid));
         $response = new Object();
         $response->state = 'OK';
         $response->message = 'CANCELADA SU COMPRA';
