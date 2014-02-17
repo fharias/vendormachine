@@ -16,7 +16,6 @@ class CartsController extends AppController {
         if (!$cart) {
             $data = array();
             $data['Cart']['uuid'] = $uuid;
-            $data['Cart']['registerdate'] = date('Y-m-d H:i:s');
             $this->Cart->save($data);
             $id = $this->Cart->getLastInsertId();
         } else {
