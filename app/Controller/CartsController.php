@@ -67,7 +67,7 @@ class CartsController extends AppController {
         $data['Job']['Active'] = 1;
         $data['Job']['Notes'] = $vendorcode;
         $this->Job->save($data);
-        $itemCart = $this->CartItem->find('all', array('conditions' => array('cart_id' => $id)));
+        $cart = $this->Cart->query("select a.*, b.*, c.Description1, c.Description2, c.Cost from Cart a, CartItem b, Item c where a.id = b.cart_id and c.Code = b.ItemCode and a.uuid = '" . $uuid . "' and a.state=1");
         foreach ($itemCart as $c) {
             $data = array();
             $data['JobItem']['MyNo'] = $jobId;
