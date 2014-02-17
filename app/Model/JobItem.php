@@ -6,5 +6,6 @@
  */
 class JobItem extends AppModel{
     public $useTable = 'JobItems';
+    public $primaryKey = 'RecordId';
 }
 ?>
