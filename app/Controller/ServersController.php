@@ -31,7 +31,7 @@ class ServersController extends AppController {
         foreach($data as $c){
            $cartObject[]['Item'] = $c[0]; 
         }
-        $this->set('response', $data);
+        $this->set('response', $cartObject);
     }
 
     function image($item) {
