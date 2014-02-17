@@ -71,7 +71,7 @@ class CartsController extends AppController {
         foreach ($cart as $c) {
             $data = array();
             $data['JobItem']['MyNo'] = $jobId;
-            $data['JobItem']['ItemCode'] = $c['ItemCode'];
+            $data['JobItem']['ItemCode'] = $c['Code'];
             $data['JobItem']['QtyReq'] = $c['Cantidad'];
             $data['JobItem']['Description'] = $c['Description1'];
             $this->JobItem->save($data);
