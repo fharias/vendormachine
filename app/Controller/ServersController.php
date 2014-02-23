@@ -85,14 +85,17 @@ class ServersController extends AppController {
     function searchByCriteria($criteria) {
         $this->layout = null;
         $this->loadModel('Item');
-        $result = $this->Item->find('all', array(
-            'fields' => array('Code', 'Description1', 'Cost'),
-            'conditions' =>
-            array('OR' => array(
-                    "Code Like " => '%' . $criteria . '%',
-                    "Description1 Like" => '%' . $criteria . '%'
-        ))));
-        $this->set('response', $result);
+        $data = $this->Item->query("SELECT 
+                                        b.*
+                                        ,OnHand
+                                        ,Barcode
+                                    FROM Bin a, Item b
+                                    where b.Code=a.Item and a.OnHand>0 and (Code Like '%".$criteria."%' or Description1 like '%".$criteria."%')");
+        $cartObject = array();
+        foreach($data as $c){
+           $cartObject[]['Item'] = $c[0]; 
+        }
+        $this->set('response', $cartObject);
     }
 
     protected function hextostr($x) {
