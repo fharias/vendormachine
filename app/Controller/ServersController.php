@@ -22,14 +22,17 @@ class ServersController extends AppController {
         CakeLog::debug("ENTRANDO");
         $this->loadModel('Item');
         $data = $this->Item->query('SELECT 
-                                        b.*
-                                        ,OnHand
+                                        b.Code,
+					b.Description1,
+					b.Cost
+                                        ,Sum(OnHand) as OnHand
                                         ,Barcode
-                                    FROM Bin a, Item b
-                                    where b.Code=a.Item and a.OnHand>0');
+                                        FROM Bin a, Item b
+                                        where b.Code=a.Item and a.OnHand>0 
+                                        group by b.Code, b.Description1, b.Cost, Barcode  Order By b.Description1');
         $cartObject = array();
-        foreach($data as $c){
-           $cartObject[]['Item'] = $c[0]; 
+        foreach ($data as $c) {
+            $cartObject[]['Item'] = $c[0];
         }
         $this->set('response', $cartObject);
     }
@@ -86,14 +89,16 @@ class ServersController extends AppController {
         $this->layout = null;
         $this->loadModel('Item');
         $data = $this->Item->query("SELECT 
-                                        b.*
-                                        ,OnHand
+                                        b.Code,
+					b.Description1,
+					b.Cost
+                                        ,Sum(OnHand) as OnHand
                                         ,Barcode
-                                    FROM Bin a, Item b
-                                    where b.Code=a.Item and a.OnHand>0 and (Code Like '%".$criteria."%' or Description1 like '%".$criteria."%')");
+                                        FROM Bin a, Item b
+                                        where b.Code=a.Item and a.OnHand>0  and (Code Like '%" . $criteria . "%' or Description1 like '%" . $criteria . "%') group by b.Code, b.Description1, b.Cost, Barcode  Order By b.Description1");
         $cartObject = array();
-        foreach($data as $c){
-           $cartObject[]['Item'] = $c[0]; 
+        foreach ($data as $c) {
+            $cartObject[]['Item'] = $c[0];
         }
         $this->set('response', $cartObject);
     }
@@ -102,23 +107,23 @@ class ServersController extends AppController {
         $s = '';
         foreach (explode("\n", trim(chunk_split($x, 2))) as $h)
             $s.=chr(hexdec($h));
-        
+
         return($s);
     }
 
-    public function job($sku,$vendedor, $boleta, $imei) {
+    public function job($sku, $vendedor, $boleta, $imei) {
         $this->loadModel('Item');
         $this->loadModel('Job');
         $this->loadModel('JobItem');
-        $r = $this->Item->find('first',array('conditions'=>array('Code'=>$sku)));
+        $r = $this->Item->find('first', array('conditions' => array('Code' => $sku)));
         $jobId = mt_rand(1000, 999999);
         $data = array();
-        $data['Job']['MyNo']=$jobId;
-        $data['Job']['Description']=$boleta;
-        $data['Job']['Active']=1;
-        $data['Job']['Notes']=$vendedor;
+        $data['Job']['MyNo'] = $jobId;
+        $data['Job']['Description'] = $boleta;
+        $data['Job']['Active'] = 1;
+        $data['Job']['Notes'] = $vendedor;
         $this->Job->save($data);
-        $data=array();
+        $data = array();
         $data['JobItem']['MyNo'] = $jobId;
         $data['JobItem']['ItemCode'] = $sku;
         $data['JobItem']['QtyReq'] = 1;
@@ -129,10 +134,7 @@ class ServersController extends AppController {
         $response->message = 'PROCESO EXITOSO';
         $response->codigo = $jobId;
         $this->set('response', $response);
-        
-        
     }
-
 
 }
 
