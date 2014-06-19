@@ -102,6 +102,65 @@ class ServersController extends AppController {
         }
         $this->set('response', $cartObject);
     }
+    
+    function searchByCarrier($criteria) {
+        $this->layout = null;
+        $this->loadModel('Item');
+        $data = $this->Item->query("SELECT 
+                                        b.Code,
+					b.Description1,
+					b.Cost
+                                        ,Sum(OnHand) as OnHand
+                                        ,Barcode
+                                        FROM Bin a, Item b
+                                        where b.Code=a.Item and a.OnHand>0  and
+                                        b.Supplier='".$criteria."' 
+                                        group by b.Code, b.Description1, b.Cost, Barcode  Order By b.Description1");
+        $cartObject = array();
+        foreach ($data as $c) {
+            $cartObject[]['Item'] = $c[0];
+        }
+        $this->set('response', $cartObject);
+    }
+    
+    function searchByBrand($criteria) {
+        $this->layout = null;
+        $this->loadModel('Item');
+        $data = $this->Item->query("SELECT 
+                                        b.Code,
+					b.Description1,
+					b.Cost
+                                        ,Sum(OnHand) as OnHand
+                                        ,Barcode
+                                        FROM Bin a, Item b
+                                        where b.Code=a.Item and a.OnHand>0  and
+                                        b.Manufacturer='".$criteria."' 
+                                        group by b.Code, b.Description1, b.Cost, Barcode  Order By b.Description1");
+        $cartObject = array();
+        foreach ($data as $c) {
+            $cartObject[]['Item'] = $c[0];
+        }
+        $this->set('response', $cartObject);
+    }
+    
+    function searchByPrice($criteria) {
+        $this->layout = null;
+        $this->loadModel('Item');
+        $data = $this->Item->query("SELECT 
+                                        b.Code,
+					b.Description1,
+					b.Cost
+                                        ,Sum(OnHand) as OnHand
+                                        ,Barcode
+                                        FROM Bin a, Item b
+                                        where b.Code=a.Item and a.OnHand>0  and
+                                        group by b.Code, b.Description1, b.Cost, Barcode  Order By b.UnitCost ".$criteria);
+        $cartObject = array();
+        foreach ($data as $c) {
+            $cartObject[]['Item'] = $c[0];
+        }
+        $this->set('response', $cartObject);
+    }
 
     protected function hextostr($x) {
         $s = '';

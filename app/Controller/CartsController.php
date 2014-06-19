@@ -60,7 +60,7 @@ class CartsController extends AppController {
             array('cart_id' => $id)
                 )
         );
-        $jobId = mt_rand(1000, 999999);
+        $jobId = mt_rand(100, 999);
         $data = array();
         $data['Job']['MyNo'] = $jobId;
         $data['Job']['Description'] = $factura;
