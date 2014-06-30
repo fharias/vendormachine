@@ -114,7 +114,27 @@ class ServersController extends AppController {
                                         ,Barcode
                                         FROM Bin a, Item b
                                         where b.Code=a.Item and a.OnHand>0  and
-                                        b.Supplier='".$criteria."' 
+                                        lower(b.Vendor)='".strtolower($criteria)."' 
+                                        group by b.Code, b.Description1, b.Cost, Barcode  Order By b.Description1");
+        $cartObject = array();
+        foreach ($data as $c) {
+            $cartObject[]['Item'] = $c[0];
+        }
+        $this->set('response', $cartObject);
+    }
+    
+    function searchByGroup($criteria) {
+        $this->layout = null;
+        $this->loadModel('Item');
+        $data = $this->Item->query("SELECT 
+                                        b.Code,
+					b.Description1,
+					b.Cost
+                                        ,Sum(OnHand) as OnHand
+                                        ,Barcode
+                                        FROM Bin a, Item b
+                                        where b.Code=a.Item and a.OnHand>0  and
+                                        lower(b.ItemGroup)='".strtolower($criteria)."' 
                                         group by b.Code, b.Description1, b.Cost, Barcode  Order By b.Description1");
         $cartObject = array();
         foreach ($data as $c) {
@@ -134,7 +154,7 @@ class ServersController extends AppController {
                                         ,Barcode
                                         FROM Bin a, Item b
                                         where b.Code=a.Item and a.OnHand>0  and
-                                        b.Manufacturer='".$criteria."' 
+                                        lower(b.Mfg)='".strtolower($criteria)."' 
                                         group by b.Code, b.Description1, b.Cost, Barcode  Order By b.Description1");
         $cartObject = array();
         foreach ($data as $c) {
@@ -143,7 +163,7 @@ class ServersController extends AppController {
         $this->set('response', $cartObject);
     }
     
-    function searchByPrice($criteria) {
+    function searchByPrice($criteria='desc') {
         $this->layout = null;
         $this->loadModel('Item');
         $data = $this->Item->query("SELECT 
@@ -154,7 +174,7 @@ class ServersController extends AppController {
                                         ,Barcode
                                         FROM Bin a, Item b
                                         where b.Code=a.Item and a.OnHand>0  and
-                                        group by b.Code, b.Description1, b.Cost, Barcode  Order By b.UnitCost ".$criteria);
+                                        group by b.Code, b.Description1, b.Cost, Barcode  Order By b.Cost ".$criteria);
         $cartObject = array();
         foreach ($data as $c) {
             $cartObject[]['Item'] = $c[0];
