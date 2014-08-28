@@ -180,6 +180,7 @@ class ServersController extends AppController {
             $cartObject[]['Item'] = $c[0];
         }
         $this->set('response', $cartObject);
+        
     }
 
     protected function hextostr($x) {
